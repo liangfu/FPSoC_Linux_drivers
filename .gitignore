@@ -1,0 +1,15 @@
+*.elf
+*.a
+*/obj/*
+*.o
+*.ko
+*.mod.c
+*.mod.o
+*.tmp_versions
+*.ko.cmd
+*.mod.o.cmd
+*.o.cmd
+*.symvers
+*.order
+
+
