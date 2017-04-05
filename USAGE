@@ -1,0 +1,74 @@
+
+
+==================== STRUCTURE DESCRIPTION ====================
+Structure of every module directory
+------------------------------------
+- Settings.mak
+- api/
+- driver/
+- include/
+
+
+Settings.mak
+------------
+	This file incorpolates compilation process, driver and API configuration.
+	The most important settings are Kernel source directory, cross-compiler, 
+	ioctl magic number,	driver node name (/dev/xxxxx), compatible string (from
+	Device Tree Blob) and debugging setting.
+
+
+driver/
+-------
+	Driver sources. If Kernel source directory in Settings.mak file is set up
+	properly and cross-compieler is added to $PATH, command 'make' should 
+	compile driver.
+
+
+api/
+----
+	Driver API sources. If cross-compiler is added to $PATH, command 'make'
+	should resolve in library.
+
+
+include/
+--------
+	Documented API interface header. This header provides declarations and 
+	documentation for API functions and should be included into project 
+	sources.
+
+
+==================== COMPILATION GUIDE ====================
+1. Set Kernel source directory (KSOURCE_DIR) in Setings.mak file (note: 
+   relative path must be set relative to 'driver/' directory).
+
+2. Set up cross-compiler (CROSS_COMPILE) in Setings.mak file.
+
+3. Add cross-compiler path to $PATH variable. If working with Altera tools.
+   Entering SoC EDS Command Shell does this automatically.
+
+4. Go to 'driver/'' directory. Execute 'make'.
+
+5. Go to api/ directory. Execute 'make'.
+
+At this point there should be *.ko file in driver directory (kerenl module) and
+libxxxx.a file in api directory.
+
+
+==================== API USAGE GUIDE ====================
+NOTE: Makefile based project is considered, necessary compiler options are
+provided below.
+
+For every API:
+	Add library path - 'api/' directory:
+	usage '-Ldriver_path/api'
+	
+	Add library:
+	usage '-lfoo' (for libfoo.a)
+	
+	Add include directory:
+	usage '-Idriver_path/include'
+
+	Include API interface header file into source file
+	#include "foo_api.h"
+
+	!!! For intreface specification refer to include directory header file
