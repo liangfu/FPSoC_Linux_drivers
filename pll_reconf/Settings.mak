@@ -1,6 +1,6 @@
 # ==================== COMPILATION RELATED SETTINGS ====================
 # Path to the kernel sources (from "./driver", if relative path is used)
-KSOURCE_DIR=../../../linux-socfpga
+KSOURCE_DIR=linux-socfpga
 
 # Cross compiler "prepend" string
 CROSS_COMPILE=arm-linux-gnueabihf-
