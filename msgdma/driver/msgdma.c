@@ -96,6 +96,7 @@
 #define CSR_READ_SEQ_NUM_OFFSET 	0x12
 
 /* Some useful defines */
+#define CSR_STATUS_BUSY_BIT				(1<<0)
 #define CSR_STATUS_IRQ_BIT 				(1<<9)
 #define CSR_GLOBAL_IRQ_MASK_BIT			(1<<4)
 #define CSR_RESET_DISPATCHER			(1<<1)
@@ -401,7 +402,7 @@ long msgdma_is_busy(struct file *filp, unsigned int cmd, unsigned long arg)
 	/* access private data */
 	msgdma = filp->private_data;
 
-	value = ioread32(msgdma->csr_iomap + CSR_STATUS_OFFSET);
+	value = ioread32(msgdma->csr_iomap + CSR_STATUS_OFFSET) & CSR_STATUS_BUSY_BIT;
 	__put_user(value, (int*)arg);
 
 	return 0;
