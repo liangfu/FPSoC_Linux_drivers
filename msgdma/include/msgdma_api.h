@@ -147,6 +147,26 @@ int enable_global_interrupt_mask(msgdma_device_t device);
 int disable_global_interrupt_mask(msgdma_device_t device);
 
 
+/**
+ * @brief Check if MSGDMA is in busy state
+ *
+ * @param device Devie descriptor.
+ * @param busy   Destination to save busy state
+ *
+ * @return Returns 0 on succsess.
+ */
+int read_busy(msgdma_device_t device, int *busy);
+
+
+/**
+ * @brief Reset dispatcher
+ *
+ * @param device Devie descriptor.
+ *
+ * @return Returns 0 on succsess.
+ */
+int reset_dispatcher(msgdma_device_t device);
+
 /*
 TODO:
 read_mm_response();
@@ -157,7 +177,6 @@ read_csr_write_descriptor_buffer_fill_level();
 read_csr_response_buffer_fill_level();
 read_csr_read_sequence_number();
 read_csr_write_sequence_number();
-read_busy();
 read_descriptor_buffer_empty();
 read_descriptor_buffer_full();
 read_response_buffer_empty();
@@ -169,7 +188,6 @@ read_stopped_on_early_termination();
 read_irq();
 stop_dispatcher();
 start_dispatcher();
-reset_dispatcher();
 enable_stop_on_error();
 disable_stop_on_error();
 enable_stop_on_early_termination();

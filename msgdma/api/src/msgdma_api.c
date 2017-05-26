@@ -96,3 +96,16 @@ int disable_global_interrupt_mask(msgdma_device_t device)
 	__DEBUG("disable_global_interrupt_mask()\n");
 	return ioctl(device, MSGDMA_DISABLE_IRQ_MASK, NULL);
 }
+
+
+int read_busy(msgdma_device_t device, int*busy)
+{
+	__DEBUG("read_busy()\n");
+	return ioctl(device, MSGDMA_IS_BUSY_MASK, busy);
+}
+
+int reset_dispatcher(msgdma_device_t device)
+{
+	__DEBUG("reset_dispatcher()\n");
+	return ioctl(device, MSGDMA_RESET_MASK, NULL);	
+}

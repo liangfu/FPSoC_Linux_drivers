@@ -98,6 +98,7 @@
 /* Some useful defines */
 #define CSR_STATUS_IRQ_BIT 				(1<<9)
 #define CSR_GLOBAL_IRQ_MASK_BIT			(1<<4)
+#define CSR_RESET_DISPATCHER			(1<<1)
 #define DSCR_TRANSFER_COMPLETE_IRQ_BIT	(1<<14)
 #define DSCR_EARLY_TERMINATION_IRQ_BIT	(1<<15)
 #define DSCR_TRANSFER_GO_BIT 			(1<<31)
@@ -141,6 +142,8 @@ long msgdma_write_std_dscr		(struct file *filp, unsigned int cmd, unsigned long 
 long msgdma_write_ext_dscr		(struct file *filp, unsigned int cmd, unsigned long arg);
 long msgdma_enable_global_IRQ	(struct file *filp, unsigned int cmd, unsigned long arg);
 long msgdma_disable_global_IRQ	(struct file *filp, unsigned int cmd, unsigned long arg);
+long msgdma_is_busy 			(struct file *filp, unsigned int cmd, unsigned long arg);
+long msgdma_reset_dispatcher	(struct file *filp, unsigned int cmd, unsigned long arg);
 
 
 static struct file_operations msgdma_fops = {
@@ -231,7 +234,14 @@ long msgdma_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 	}
 	else if( cmd == MSGDMA_DISABLE_IRQ_MASK){
 		return msgdma_disable_global_IRQ(filp, cmd, arg);
+	} 
+	else if(cmd == MSGDMA_IS_BUSY_MASK){
+		return msgdma_is_busy(filp, cmd, arg);
 	}
+	else if(cmd == MSGDMA_RESET_MASK){
+		return msgdma_reset_dispatcher(filp, cmd, arg);
+	}
+
 
 	return -ENOTTY;
 }
@@ -377,6 +387,38 @@ long msgdma_disable_global_IRQ	(struct file *filp, unsigned int cmd, unsigned lo
 
 	value = ioread32(msgdma->csr_iomap + CSR_CONTROL_OFFSET);
 	iowrite32(value & (~CSR_GLOBAL_IRQ_MASK_BIT), msgdma->csr_iomap + CSR_CONTROL_OFFSET);
+
+	return 0;
+}
+
+long msgdma_is_busy(struct file *filp, unsigned int cmd, unsigned long arg)
+{
+	struct msgdma_private_data *msgdma;
+	int value;
+
+	__DEBUG("msgdma_is_busy called\n");
+
+	/* access private data */
+	msgdma = filp->private_data;
+
+	value = ioread32(msgdma->csr_iomap + CSR_STATUS_OFFSET);
+	__put_user(value, (int*)arg);
+
+	return 0;
+}
+
+long msgdma_reset_dispatcher(struct file *filp, unsigned int cmd, unsigned long arg)
+{
+	struct msgdma_private_data *msgdma;
+	unsigned value;
+
+	__DEBUG("msgdma_is_busy called\n");
+
+	/* access private data */
+	msgdma = filp->private_data;
+
+	value = ioread32(msgdma->csr_iomap + CSR_CONTROL_OFFSET);
+	iowrite32(value & (~CSR_RESET_DISPATCHER), msgdma->csr_iomap + CSR_CONTROL_OFFSET);
 
 	return 0;
 }
