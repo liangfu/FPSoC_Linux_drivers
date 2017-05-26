@@ -142,7 +142,7 @@ unsigned cma_get_phy_addr(void *mem)
 	data = (unsigned)mem;
 
 	/* get physical address */
-	if( ioctl(cma_fd, CMA_GET_SIZE, &data) == -1){
+	if( ioctl(cma_fd, CMA_GET_PHY_ADDR, &data) == -1){
 		__DEBUG("cma_free - ioctl command unsuccsessful\n");
 		return 0;
 	}
