@@ -418,7 +418,7 @@ long msgdma_reset_dispatcher(struct file *filp, unsigned int cmd, unsigned long 
 	msgdma = filp->private_data;
 
 	value = ioread32(msgdma->csr_iomap + CSR_CONTROL_OFFSET);
-	iowrite32(value & (~CSR_RESET_DISPATCHER), msgdma->csr_iomap + CSR_CONTROL_OFFSET);
+	iowrite32(value | CSR_RESET_DISPATCHER, msgdma->csr_iomap + CSR_CONTROL_OFFSET);
 
 	return 0;
 }
