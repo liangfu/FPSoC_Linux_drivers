@@ -179,14 +179,14 @@ static irqreturn_t interrupt_handler(int irq, void *dev_id, struct pt_regs *regs
 	__DEBUG("Removing IRQ bit\n");
 	iowrite32(CSR_STATUS_IRQ_BIT,	((struct msgdma_private_data*)dev_id)->csr_iomap + CSR_STATUS_OFFSET);
 
+	/* TODO - find a wat to remove this flag */
+	__DEBUG("Clearing sleep flag\n");
+	((struct msgdma_private_data*)dev_id)->sleeping = 0;
 
 	/* wake up waiting process */
 	__DEBUG("Waking up process\n");
 	wake_up_interruptible( &( ( (struct msgdma_private_data *)dev_id)->wait_queue));
 
-	/* TODO - find a wat to remove this flag */
-	__DEBUG("Clearing sleep flag\n");
-	((struct msgdma_private_data*)dev_id)->sleeping = 0;
 
 	return IRQ_HANDLED;
 }
@@ -194,7 +194,7 @@ static irqreturn_t interrupt_handler(int irq, void *dev_id, struct pt_regs *regs
 
 int msgdma_open( struct inode *inode, struct file *filp)
 {
-	__DEBUG("pll_open called\n");
+	__DEBUG("msgdma_open called\n");
 
 	/* Save reference to private data */
 	filp->private_data = container_of(inode->i_cdev, struct msgdma_private_data, cdev);
@@ -204,7 +204,7 @@ int msgdma_open( struct inode *inode, struct file *filp)
 
 int msgdma_release( struct inode *inode, struct file *filp)\
 {
-	__DEBUG("pll_release called\n");
+	__DEBUG("msgdma_release called\n");
 	return 0;
 }
 
