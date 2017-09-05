@@ -1,12 +1,13 @@
+PATH_SETTINGS:=`pwd`/Settings.mak
 
 all:
 	@echo "\033[1;33m>>> Building DRIVER\033[0m"
-	cd driver; make -C $(PWD)/driver
+	make -C driver PATH_SETTINGS=$(PATH_SETTINGS)
 	@echo "\033[1;33m>>> Building API library\033[0m"
-	cd api; make -C $(PWD)/api
+	make -C api PATH_SETTINGS=$(PATH_SETTINGS)
 
 clean:
 	@echo "\033[1;33m>>> Cleaning DRIVER directory\033[0m"
-	cd driver; make -C $(PWD)/driver clean
+	make -C driver clean PATH_SETTINGS=$(PATH_SETTINGS)
 	@echo "\033[1;33m>>> Cleaning API directory\033[0m"
-	cd api; make -C $(PWD)/api clean
+	make -C api clean PATH_SETTINGS=$(PATH_SETTINGS)

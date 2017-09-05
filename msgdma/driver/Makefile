@@ -1,5 +1,6 @@
+PATH_SETTINGS?=$(PWD)/../Settings.mak
 # Driver configuration file
-include $(PWD)/../Settings.mak
+include $(PATH_SETTINGS)
 
 # kbuild 
 ifeq ($(KERNELRELEASE),)

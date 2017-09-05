@@ -80,7 +80,7 @@ int write_standard_descriptor(msgdma_device_t device, struct msgdma_dscr *dscr)
 int write_standard_descriptor_extended(msgdma_device_t device, struct msgdma_dscr_extended *dscr)
 {
 	__DEBUG("write_standard_descriptor_extended()\n");
-	return ioctl(device, MSGDMA_WRITE_STD_DSCR, dscr);
+	return ioctl(device, MSGDMA_WRITE_EXT_DSCR, dscr);
 }
 
 

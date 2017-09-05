@@ -1,8 +1,8 @@
+PATH_SETTINGS?=$(PWD)/../Settings.mak
+# Driver configuration file
+include $(PATH_SETTINGS)
+
 CC=gcc
-
-# Additional settings
-include $(PWD)/../Settings.mak
-
 DEFINES=-DMSGDMA_DEBUG=$(MSGDMA_DEBUG)
 LIBRARY=libmsgdma.a
 CFLAGS=

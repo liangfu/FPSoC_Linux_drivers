@@ -70,7 +70,7 @@ struct msgdma_dscr{
 
 
 /**
- * @brief Structure describing extended transfer desciptor.
+ * @brief Structure describing extended transfer desciptor. Remeber to initialize to 0.
  */
 struct msgdma_dscr_extended{
 	uint32_t	read_addr;

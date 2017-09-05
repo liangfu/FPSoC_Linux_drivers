@@ -1,11 +1,11 @@
-CC=gcc
-
-# Additional settings
-include $(PWD)/../Settings.mak
+PATH_SETTINGS?=$(PWD)/../Settings.mak
+# Driver configuration file
+include $(PATH_SETTINGS)
 
 DEFINES=-DCMA_DEBUG=$(CMA_DEBUG) \
 		-DDRIVER_NODE_NAME="\"$(DRIVER_NODE_NAME)\""
 
+CC=gcc
 LIBRARY_NAME=libcma.a
 INC=-I../driver -I../include
 CFLAGS=-Wall -O3

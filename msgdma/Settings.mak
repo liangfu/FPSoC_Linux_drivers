@@ -1,6 +1,6 @@
 # ==================== COMPILATION RELATED SETTINGS ====================
 # Path to the kernel sources (from "./driver", if relative path is used)
-KSOURCE_DIR=linux-socfpga
+KSOURCE_DIR=/home/rihards/life/projects/publications/fpga_master_communications_cyclone_V/linux-socfpga
 
 # Cross compiler "prepend" string
 CROSS_COMPILE=arm-linux-gnueabihf-
@@ -9,7 +9,7 @@ CROSS_COMPILE=arm-linux-gnueabihf-
 ARCH=arm
 
 # Compile with debug information
-MSGDMA_DEBUG=0
+MSGDMA_DEBUG?=0
 
 # ==================== DRIVER RELATED SETTINGS ====================
 # Base name for all devices/classes
